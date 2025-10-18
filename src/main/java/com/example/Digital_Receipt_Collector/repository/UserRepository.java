@@ -1,5 +1,8 @@
 package com.example.Digital_Receipt_Collector.repository;
 
-public class UserRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.Digital_Receipt_Collector.entity.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
 }
