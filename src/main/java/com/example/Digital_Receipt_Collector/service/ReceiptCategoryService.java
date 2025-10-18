@@ -29,5 +29,22 @@ public class ReceiptCategoryService {
     public java.util.Optional<ReceiptCategory> getById(Long id) {
         return repository.findById(id);
     }
+
+    public ReceiptCategory updateCategory(Long id, ReceiptCategory c) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setName(c.getName());
+                    existing.setDiscription(c.getDiscription());
+                    return repository.save(existing);
+                })
+                .orElseGet(() -> {
+                    c.setId(id);
+                    return repository.save(c);
+                });
+    }
+
+    public void deleteCategory(Long id) {
+        repository.deleteById(id);
+    }
 }
 

@@ -35,4 +35,29 @@ public class ReceiptService {
     public List<Receipt> getByCategory(Long categoryId) {
         return repository.findAll().stream().filter(r -> r.getCategory() != null && r.getCategory().getId().equals(categoryId)).toList();
     }
+
+    public List<Receipt> getAllReceipts() {
+        return repository.findAll();
+    }
+
+    public Receipt updateReceipt(Long id, Receipt r) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setName(r.getName());
+                    existing.setDiscription(r.getDiscription());
+                    existing.setAmount(r.getAmount());
+                    existing.setDate(r.getDate());
+                    existing.setUser(r.getUser());
+                    existing.setCategory(r.getCategory());
+                    return repository.save(existing);
+                })
+                .orElseGet(() -> {
+                    r.setId(id);
+                    return repository.save(r);
+                });
+    }
+
+    public void deleteReceipt(Long id) {
+        repository.deleteById(id);
+    }
 }
