@@ -14,6 +14,6 @@ public class ReceiptCategory {
     private String name;
     private String discription;
     
-    @OneToMany(mappedBy = "ReceiptCatogory", cascade = CascadeType.ALL)
-    private List<Receipt> Reciept;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Receipt> receipts;
 }

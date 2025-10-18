@@ -18,6 +18,6 @@ public class User {
     private String contact_no;
     private LocalDateTime join_date; 
     
-    @OneToMany(mappedBy = "User", cascade = CascadeType.ALL)
-    private List<Receipt> Reciept;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Receipt> receipts;
 }
