@@ -10,4 +10,5 @@ public class DigitalReceiptCollectorApplication {
 		SpringApplication.run(DigitalReceiptCollectorApplication.class, args);
 	}
 
+
 }

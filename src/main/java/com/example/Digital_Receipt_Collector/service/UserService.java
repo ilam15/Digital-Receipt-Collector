@@ -38,6 +38,7 @@ public class UserService {
 					existing.setEmail(user.getEmail());
 					existing.setContact_no(user.getContact_no());
 					existing.setJoin_date(user.getJoin_date());
+					existing.setBirthDate(user.getBirthDate());
 					return userRepository.save(existing);
 				})
 				.orElseGet(() -> {

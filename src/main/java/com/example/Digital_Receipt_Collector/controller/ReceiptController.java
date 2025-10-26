@@ -11,16 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.Digital_Receipt_Collector.entity.Receipt;
 import com.example.Digital_Receipt_Collector.service.ReceiptService;
+import com.example.Digital_Receipt_Collector.service.UserService;
+import com.example.Digital_Receipt_Collector.service.ReceiptCategoryService;
 
 @Controller
 @RequestMapping("/receipts")
 public class ReceiptController {
 
 	private final ReceiptService receiptService;
+	private final UserService userService;
+	private final ReceiptCategoryService categoryService;
 
 	@Autowired
-	public ReceiptController(ReceiptService receiptService) {
+	public ReceiptController(ReceiptService receiptService, UserService userService, ReceiptCategoryService categoryService) {
 		this.receiptService = receiptService;
+		this.userService = userService;
+		this.categoryService = categoryService;
 	}
 
 	@GetMapping
@@ -32,6 +38,8 @@ public class ReceiptController {
 	@GetMapping("/new")
 	public String createForm(Model model) {
 		model.addAttribute("receipt", new Receipt());
+		model.addAttribute("users", userService.getAllUsers());
+		model.addAttribute("categories", categoryService.getAllCategories());
 		return "receipts/form";
 	}
 
@@ -44,6 +52,8 @@ public class ReceiptController {
 	@GetMapping("/edit/{id}")
 	public String editForm(@PathVariable Long id, Model model) {
 		model.addAttribute("receipt", receiptService.getById(id).orElseThrow());
+		model.addAttribute("users", userService.getAllUsers());
+		model.addAttribute("categories", categoryService.getAllCategories());
 		return "receipts/form";
 	}
 

@@ -15,7 +15,7 @@ public class Receipt{
     private Long id;
 
     private String name;
-    private String discription;
+    private String description;
 
     private double amount;
 

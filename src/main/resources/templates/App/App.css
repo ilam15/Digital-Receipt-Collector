@@ -1,0 +1,35 @@
+/* Simple, modern styles for Digital Receipt Collector app landing page */
+:root{
+	--primary:#0d6efd;
+	--muted:#6c757d;
+	--card-radius:12px;
+}
+
+body{
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	background: #f7f9fc;
+	color: #222;
+}
+
+.bg-gradient{
+	background: linear-gradient(90deg, rgba(13,110,253,0.95), rgba(58,123,213,0.9));
+	color: #fff;
+}
+
+.app-header .logo{color: #fff}
+
+.device-mockup img{ max-width:320px; border-radius: 16px; }
+
+.action-card{ cursor:pointer; transition: transform .18s ease, box-shadow .18s ease; border-radius: var(--card-radius); }
+.action-card:hover{ transform: translateY(-6px); box-shadow: 0 10px 30px rgba(16,24,40,0.08); }
+
+.card .card-body i{ display:block; }
+
+/* Responsive tweaks */
+@media (max-width: 767px){
+	.device-mockup{ display:none }
+	.app-header .container{ flex-direction:column; gap:.75rem }
+}
+
+/* small utility */
+.text-muted{ color: var(--muted) !important }

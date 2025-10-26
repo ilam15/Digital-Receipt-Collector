@@ -1,0 +1,79 @@
+:root{
+  --primary:#0d6efd;
+  --muted:#6c757d;
+  --bg:#f7f9fc;
+  --card-bg:#ffffff;
+}
+body{background:var(--bg);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial}
+.navbar-brand .brand-title{font-weight:600}
+.brand-icon{font-size:1.3rem}
+.card{border:0;border-radius:12px}
+.card-header{border-top-left-radius:12px;border-top-right-radius:12px}
+.app-page-enter{animation:fadeInUp .28s ease both}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.action-card{border-radius:12px;transition:transform .18s,box-shadow .18s;cursor:pointer}
+.action-card:hover{transform:translateY(-6px);box-shadow:0 8px 30px rgba(13,110,253,0.12)}
+table.table thead th{background:linear-gradient(180deg,rgba(13,110,253,0.06),transparent)}
+.app-toast{position:fixed;right:20px;bottom:20px;padding:10px 14px;border-radius:8px;color:#fff;opacity:0;transform:translateY(8px);transition:all .28s}
+.app-toast.visible{opacity:1;transform:none}
+.app-toast.bg-success{background:#198754}
+.app-toast.bg-danger{background:#dc3545}
+.app-toast.bg-dark{background:#343a40}
+
+/* simple responsive tweaks */
+@media (max-width:768px){.navbar-brand .brand-sub{display:none}}
+/* Fantastic UI styles for Digital Receipt Collector */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+:root{
+  --primary:#5b6cff; /* refined primary */
+  --accent:#22c1c3;
+  --muted:#6c757d;
+  --card-radius:14px;
+  --glass: rgba(255,255,255,0.7);
+}
+
+html,body{height:100%;}
+body{
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg,#f4f7ff 0%, #fbfdff 100%);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+}
+
+.bg-gradient{
+  background: linear-gradient(90deg, var(--primary), #6d79ff);
+  color: #fff;
+}
+
+.navbar .brand-icon{ font-size:1.4rem; }
+.brand-title{ font-weight:700; line-height:1; }
+.brand-sub{ opacity:0.85 }
+
+.page-fade{ animation: pageFade .28s ease both; }
+@keyframes pageFade{ from{ opacity:0; transform: translateY(6px) } to{ opacity:1; transform:none } }
+
+.device-mockup img{ max-width:320px; border-radius: 18px; box-shadow: 0 12px 30px rgba(17,24,39,0.08); }
+
+.action-card{ cursor:pointer; transition: transform .18s ease, box-shadow .18s ease; border-radius: var(--card-radius); background: linear-gradient(180deg,#fff,#fbfdff); border:1px solid rgba(99,102,241,0.06); }
+.action-card:hover{ transform: translateY(-8px); box-shadow: 0 18px 40px rgba(16,24,40,0.08); }
+
+.card .card-body i{ display:block; }
+
+/* table enhancements */
+.table thead.table-dark th{ background: linear-gradient(90deg, rgba(13,110,253,0.92), rgba(58,123,213,0.92)); color:#fff; border:0 }
+.table tbody tr{ transition: background .12s ease, transform .12s ease }
+.table tbody tr:hover{ background:#f8faff }
+
+.btn-primary{ background: var(--primary); border-color: transparent }
+.btn-outline-primary{ border-color: rgba(11,82,255,0.12); color: var(--primary) }
+
+/* tiny toast */
+.app-toast{ position:fixed; right:20px; bottom:20px; z-index:1100; background:#111827; color:#fff; padding:10px 14px; border-radius:8px; box-shadow:0 8px 30px rgba(17,24,39,0.12); opacity:0.98 }
+
+/* Responsive tweaks */
+@media (max-width: 767px){
+  .device-mockup{ display:none }
+  .app-header .container{ flex-direction:column; gap:.75rem }
+  .brand-sub{ display:none }
+}
+

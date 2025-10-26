@@ -44,7 +44,7 @@ public class ReceiptService {
         return repository.findById(id)
                 .map(existing -> {
                     existing.setName(r.getName());
-                    existing.setDiscription(r.getDiscription());
+                    existing.setDescription(r.getDescription());
                     existing.setAmount(r.getAmount());
                     existing.setDate(r.getDate());
                     existing.setUser(r.getUser());

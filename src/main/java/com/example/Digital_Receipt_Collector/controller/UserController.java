@@ -1,4 +1,4 @@
-package com.example.Digital_Receipt_Collector.controller;
+ package com.example.Digital_Receipt_Collector.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.Digital_Receipt_Collector.entity.User;
 import com.example.Digital_Receipt_Collector.service.UserService;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
@@ -21,16 +26,29 @@ public class UserController {
 
     @GetMapping
     public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        List<User> users = userService.getAllUsers();
+        Map<Long, Integer> ages = new HashMap<>();
+        for (User u : users) {
+            if (u.getBirthDate() != null) {
+                try {
+                    int years = Period.between(u.getBirthDate(), LocalDate.now()).getYears();
+                    ages.put(u.getId(), years);
+                } catch (Exception ex) {
+                    // ignore invalid date
+                }
+            }
+        }
+        model.addAttribute("users", users);
+        model.addAttribute("ages", ages);
         return "users/list";
     }
-
+ 
     @GetMapping("/new")
     public String createUserForm(Model model) {
         model.addAttribute("user", new User());
         return "users/form";
     }
-
+ 
     @PostMapping
     public String createUser(@ModelAttribute User user) {
         userService.createUser(user);
