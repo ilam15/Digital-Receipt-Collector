@@ -13,6 +13,10 @@ import com.example.Digital_Receipt_Collector.entity.Receipt;
 import com.example.Digital_Receipt_Collector.service.ReceiptService;
 import com.example.Digital_Receipt_Collector.service.UserService;
 import com.example.Digital_Receipt_Collector.service.ReceiptCategoryService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/receipts")
@@ -44,7 +48,24 @@ public class ReceiptController {
 	}
 
 	@PostMapping
-	public String create(@ModelAttribute Receipt receipt) {
+	public String create(@ModelAttribute Receipt receipt,
+						 @RequestParam("userId") Long userId,
+						 @RequestParam("categoryId") Long categoryId,
+						 @RequestParam(value = "date", required = false) String dateStr) {
+		// attach user
+		userService.getUserById(userId).ifPresent(receipt::setUser);
+		// attach category
+		categoryService.getById(categoryId).ifPresent(receipt::setCategory);
+		// parse date-time from datetime-local input
+		if (dateStr != null && !dateStr.isBlank()) {
+			try {
+				DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+				LocalDateTime dt = LocalDateTime.parse(dateStr, fmt);
+				receipt.setDate(dt);
+			} catch (Exception ex) {
+				// ignore parse error, or optionally log
+			}
+		}
 		receiptService.createReceipt(receipt);
 		return "redirect:/receipts";
 	}
@@ -58,7 +79,22 @@ public class ReceiptController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String update(@PathVariable Long id, @ModelAttribute Receipt receipt) {
+	public String update(@PathVariable Long id, @ModelAttribute Receipt receipt,
+						 @RequestParam("userId") Long userId,
+						 @RequestParam("categoryId") Long categoryId,
+						 @RequestParam(value = "date", required = false) String dateStr) {
+		// attach user and category
+		userService.getUserById(userId).ifPresent(receipt::setUser);
+		categoryService.getById(categoryId).ifPresent(receipt::setCategory);
+		if (dateStr != null && !dateStr.isBlank()) {
+			try {
+				DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+				LocalDateTime dt = LocalDateTime.parse(dateStr, fmt);
+				receipt.setDate(dt);
+			} catch (Exception ex) {
+				// ignore parse error
+			}
+		}
 		receiptService.updateReceipt(id, receipt);
 		return "redirect:/receipts";
 	}

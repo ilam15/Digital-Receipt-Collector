@@ -47,9 +47,9 @@
               </div>
               <div class="mb-3">
                 <label for="user" class="form-label">User <span class="text-danger">*</span></label>
-                <select class="form-control" id="user" th:field="*{user}" required>
+                <select class="form-control" id="user" name="userId" required>
                   <option value="">Select a user</option>
-                  <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+                  <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}" th:selected="${receipt.user != null} ? receipt.user.id == user.id : false"></option>
                 </select>
                 <div class="invalid-feedback">Please select a user.</div>
               </div>
@@ -60,13 +60,14 @@
               </div>
               <div class="mb-3">
                 <label for="date" class="form-label">Date <span class="text-danger">*</span></label>
-                <input type="date" class="form-control" id="date" th:field="*{date}" required>
-                <div class="invalid-feedback">Please provide a date.</div>
+                <input type="datetime-local" class="form-control" id="date" name="date" th:value="${receipt.date != null ? #temporals.format(receipt.date, 'yyyy-MM-dd''T''HH:mm') : ''}" required>
+                <div class="invalid-feedback">Please provide a date and time.</div>
               </div>
               <div class="mb-3">
                 <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
-                <select class="form-control" id="category" th:field="*{category}" required>
-                  <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                <select class="form-control" id="category" name="categoryId" required>
+                  <option value="">Select a category</option>
+                  <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}" th:selected="${receipt.category != null} ? receipt.category.id == cat.id : false"></option>
                 </select>
                 <div class="invalid-feedback">Please select a category.</div>
               </div>
